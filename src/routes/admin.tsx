@@ -72,13 +72,22 @@ function ProductModal({ product, categories, token, onClose, onSaved }: {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(""); setSaving(true);
+
+    if (!Number(form.categoryId)) { setError("Selecione uma categoria"); setSaving(false); return; }
+    if (!form.price) { setError("Informe o preço"); setSaving(false); return; }
+
     try {
       const url = isEdit ? `/api/admin/products?id=${product!.id}` : "/api/admin/products";
       const method = isEdit ? "PATCH" : "POST";
       const body = {
-        ...form,
+        name: form.name,
+        slug: form.slug,
+        price: form.price,
         stock: Number(form.stock),
         categoryId: Number(form.categoryId),
+        petType: form.petType,
+        featured: Boolean(form.featured),
+        active: Boolean(form.active),
         originalPrice: form.originalPrice || undefined,
         description: form.description || undefined,
         imageUrl: form.imageUrl || undefined,

@@ -163,16 +163,19 @@ JWT_EXPIRES_IN=7d
 NODE_ENV=development
 ```
 
-## Deploy (Railway)
+## Deploy (Render)
 
-1. Crie um projeto no [Railway](https://railway.app) e adicione um serviço PostgreSQL.
-2. Conecte este repositório ao Railway.
-3. Configure as variáveis de ambiente no painel do Railway:
-   - `DATABASE_URL` (copie da aba do serviço Postgres)
+Aplicação hospedada em: **https://petshop-ce.onrender.com**
+
+1. Crie um projeto no [Render](https://render.com) e adicione um serviço PostgreSQL.
+2. Conecte este repositório ao Render como **Web Service**.
+3. Configure as variáveis de ambiente:
+   - `DATABASE_URL` (copie do serviço PostgreSQL do Render)
    - `JWT_SECRET` (string aleatória longa)
    - `NODE_ENV=production`
-4. O `railway.json` já está configurado — o build e start acontecem automaticamente.
-5. Após o deploy, rode o seed via Railway CLI:
+4. Build command: `npm install && npm run build`
+5. Start command: `node .output/server/index.mjs`
+6. Após o deploy, popule o banco via shell do Render:
    ```bash
-   railway run npm run db:seed
+   npm run db:push && npm run db:seed
    ```

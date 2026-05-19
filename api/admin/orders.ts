@@ -38,6 +38,7 @@ export default defineHandler(async (event) => {
     const [order] = await db.update(orders)
       .set({ status: parsed.data.status, updatedAt: new Date() })
       .where(eq(orders.id, id)).returning();
+    if (!order) throw createError({ status: 404, message: "Pedido não encontrado" });
     return { order };
   }
 
